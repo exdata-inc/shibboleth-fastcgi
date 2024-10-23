@@ -47,7 +47,8 @@ sudo $pkgmanager install -y \
     $builddep_pkgs
 
 # Rebuild with FastCGI support
-rpmbuild --rebuild shibboleth*.src.rpm --with fastcgi
+cd /app/
+LD_LIBRARY_PATH="/usr/local/lib:/lib64" rpmbuild --rebuild shibboleth.src.rpm --with fastcgi
 
 # Remove original SRPM
-rm shibboleth*.src.rpm -f
+rm shibboleth.src.rpm -f
