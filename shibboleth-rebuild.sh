@@ -30,8 +30,12 @@ else
     $download_cmd --source shibboleth
 fi
 
+/app/edit_and_build_src_rpm.sh
+
+sleep 1
+
 # Install the SRPM's dependencies
-sudo $builddep_cmd -y shibboleth*.src.rpm
+sudo $builddep_cmd -y /app/shibboleth.src.rpm
 
 # At time of writing (Sep 2020) there is no way of engaging conditional flags
 # with dnf builddep (or yum-builddep) so the optional PreReq packages need to
@@ -39,6 +43,7 @@ sudo $builddep_cmd -y shibboleth*.src.rpm
 # https://github.com/ceph/ceph/pull/8016
 sudo $pkgmanager install -y \
     fcgi-devel \
+    libcurl-devel \
     $builddep_pkgs
 
 # Rebuild with FastCGI support
